@@ -1,68 +1,143 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
+title: webpack+react按需加载
+date: 2019-02-14
+tag: 
+  - react
+categories:
+  - 前端
+---
+![](/imgs/react/theme/load.jpg)
 
-## Available Scripts
+## CommonJS与import()
+### 方法一：CommonJS模块语法
+**利用require.ensure,require.ensure()是webpack特有的，已经被import()取代。**
 
-In the project directory, you can run:
+`方法`
 
-### `npm start`
+```javascript
+require.ensure(
+  dependencies: String[],
+  callback: function(require),
+  errorCallback: function(error),
+  chunkName: String
+)
+```
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### 方法二：import()
+**ES2015 loader规范定义了import()方法，可以在运行时动态地加载ES2015模块**
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+`方法`
 
-### `npm test`
+```javascript
+import('Component').then()
+// or 在 async中使用
+await import('Component')
+```
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+`demo`
 
-### `npm run build`
+```jsx
+import React, { Component } from 'react';
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+class App extends Component {
+  handleClick = () => {
+    import('./moduleA')
+      .then(({ moduleA }) => {
+        // Use moduleA
+      })
+      .catch(err => {
+        // Handle failure
+      });
+  };
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+  render() {
+    return (
+      <div>
+        <button onClick={this.handleClick}>Load</button>
+      </div>
+    );
+  }
+}
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+export default App;
+```
+## react-router中使用按需加载
+### 方法一：使用react.lazy
 
-### `npm run eject`
+```jsx
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import React, { Suspense, lazy } from 'react';
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+const Home = lazy(() => import('./routes/Home'));
+const About = lazy(() => import('./routes/About'));
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+const App = () => (
+  <Router>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Switch>
+        <Route exact path="/" component={Home}/>
+        <Route path="/about" component={About}/>
+      </Switch>
+    </Suspense>
+  </Router>
+);
+```
+### 方法二：利用高阶组件
+
+* 写一个高阶组件用于动态加载组件
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```jsx
+// async Component
+import React, { Component } from "react";
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+export default function asyncComponent(importComponent) {
+  class AsyncComponent extends Component {
+    constructor(props) {
+      super(props);
 
-## Learn More
+      this.state = {
+        component: null
+      };
+    }
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+    async componentDidMount() {
+      const { default: component } = await importComponent();
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+      this.setState({
+        component: component
+      });
+    }
 
-### Code Splitting
+    render() {
+      const C = this.state.component;
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+      return C ? <C {...this.props} /> : null;
+    }
+  }
 
-### Analyzing the Bundle Size
+  return AsyncComponent;
+}
+```
+* 引用并使用该高阶组件做按需加载
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+```jsx
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import asyncComponent from './asyncComponent';
+import React, { Suspense, lazy } from 'react';
 
-### Making a Progressive Web App
+const Home = lazy(() => import('./routes/Home'));
+const About = lazy(() => import('./routes/About'));
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+const App = () => (
+  <Router>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Switch>
+        <Route exact path="/" component={() => asyncComponent(import('./routes/Home'))}/>
+        <Route path="/about" component={() => asyncComponent(import('./routes/About'))}/>
+      </Switch>
+    </Suspense>
+  </Router>
+);
+```
 
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+`以上两种方法都是react官方推荐`[code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)

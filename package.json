@@ -43,6 +43,7 @@
     "react-app-polyfill": "^0.2.1",
     "react-dev-utils": "^7.0.3",
     "react-dom": "^16.8.2",
+    "react-router-dom": "^4.3.1",
     "resolve": "1.10.0",
     "sass-loader": "7.1.0",
     "style-loader": "0.23.1",
@@ -56,7 +57,8 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "commitmsg": "validate-commit-msg"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -116,5 +118,15 @@
     "presets": [
       "react-app"
     ]
+  },
+  "devDependencies": {
+    "css-properties-sorting": "^1.0.10",
+    "husky": "^1.3.1",
+    "stylelint": "^9.10.1",
+    "stylelint-order": "^2.0.0",
+    "stylelint-processor-html": "^1.0.0",
+    "stylelint-scss": "^3.5.3",
+    "stylelint-webpack-plugin": "^0.10.5",
+    "validate-commit-msg": "^2.14.0"
   }
 }
