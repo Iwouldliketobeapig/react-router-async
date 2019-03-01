@@ -1,0 +1,21 @@
+.app {
+  header {
+    display: flex;
+    height: 50px;
+    padding: 0px 12px;
+    align-items: center;
+    background: #24292e;
+    a {
+      display: inline-block;
+      color: #ffffff;
+    }
+    a:after {
+      display: inline-block;
+      margin: 0 12px;
+      content: '/';
+    }
+    a:hover {
+      color: hsla(0, 0%, 100%, 0.7);
+    }
+  }
+}
