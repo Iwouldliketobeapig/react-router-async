@@ -1,12 +1,4 @@
----
-title: webpack+react按需加载
-date: 2019-02-14
-tag: 
-  - react
-categories:
-  - 前端
----
-![](/imgs/react/theme/load.jpg)
+#webpack and react按需加载
 
 ## 原理：CommonJS与import()
 ### 方法一：CommonJS模块语法
@@ -63,7 +55,7 @@ export default App;
 ```
 ## react-router中使用按需加载
 
-[demo地址](!https://github.com/Iwouldliketobeapig/react-router-async)此处配合create-react-app使用，自己配置webpack需要配置[output.fileName](!https://webpack.docschina.org/configuration/output/#output-fileName)和[output.chunkFilename](!https://webpack.docschina.org/configuration/output/#output-chunkfilename)
+[demo地址](https://github.com/Iwouldliketobeapig/react-router-async)此处配合create-react-app使用，自己配置webpack需要配置[output.fileName](https://webpack.docschina.org/configuration/output/#output-fileName)和[output.chunkFilename](https://webpack.docschina.org/configuration/output/#output-chunkfilename)
 
 ### 方法一：使用react.lazy
 
@@ -83,7 +75,7 @@ const App = () => (
   </Router>
 );
 ```
-[查看代码](!https://github.com/Iwouldliketobeapig/react-router-async/blob/master/src/App.js#L8)
+[查看代码](https://github.com/Iwouldliketobeapig/react-router-async/blob/master/src/App.js#L8)
 ### 方法二：利用高阶组件
 * 写一个高阶组件用于动态加载组件
 
@@ -139,6 +131,6 @@ const App = () => (
   </Router>
 );
 ```
-[查看代码](!https://github.com/Iwouldliketobeapig/react-router-async/blob/master/src/App.js#L9)
+[查看代码](https://github.com/Iwouldliketobeapig/react-router-async/blob/master/src/App.js#L9)
 
 `以上两种方法都是react官方推荐`[code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
