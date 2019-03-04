@@ -8,7 +8,7 @@ categories:
 ---
 ![](/imgs/react/theme/load.jpg)
 
-## CommonJS与import()
+## 原理：CommonJS与import()
 ### 方法一：CommonJS模块语法
 **利用require.ensure,require.ensure()是webpack特有的，已经被import()取代。**
 
