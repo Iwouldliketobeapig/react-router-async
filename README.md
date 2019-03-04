@@ -83,7 +83,7 @@ const App = () => (
   </Router>
 );
 ```
-**[查看demo](!https://github.com/Iwouldliketobeapig/react-router-async/blob/master/src/App.js/)**
+**[查看demo](!https://github.com/Iwouldliketobeapig/react-router-async/blob/master/src/App.js#L8)**
 ### 方法二：利用高阶组件
 
 * 写一个高阶组件用于动态加载组件
@@ -120,6 +120,7 @@ export default function asyncComponent(importComponent) {
   return AsyncComponent;
 }
 ```
+**[查看demo](https://github.com/Iwouldliketobeapig/react-router-async/blob/master/src/asyncComponent.js)**
 * 引用并使用该高阶组件做按需加载
 
 ```jsx
@@ -139,5 +140,6 @@ const App = () => (
   </Router>
 );
 ```
+**[查看demo](!https://github.com/Iwouldliketobeapig/react-router-async/blob/master/src/App.js#L8)**
 
 `以上两种方法都是react官方推荐`[code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)

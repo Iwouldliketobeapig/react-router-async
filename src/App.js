@@ -4,7 +4,6 @@ import { Router, Route, Switch, NavLink } from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
 import asyncComponent from './asyncComponent';
 import Program from './Program';
-// window.performance.getEntriesByType("resource");
 
 const Program1 = lazy(() => import('./Program1'));
 const Progran2 = asyncComponent(() => import("./Program2"));
