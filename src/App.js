@@ -35,6 +35,17 @@ class App extends Component {
     );
   }
 
+  router = () => {
+    return (
+      <Switch>
+        <Route path="/" exact={true} render={() => <Program getResource={this.getResource} />} />
+        <Route path="/program1" render={() => <Program1 getResource={this.getResource} />} />
+        <Route path="/program2" render={() => <Progran2 getResource={this.getResource} />} />
+        <Route render={() => <Program getResource={this.getResource} />} />
+      </Switch>
+    );
+  }
+
   // 获取资源列表
   getResource = () => {
     let resourceList = window.performance.getEntriesByType("resource");
@@ -58,17 +69,6 @@ class App extends Component {
           })
         }
       </header>
-    );
-  }
-
-  router = () => {
-    return (
-      <Switch>
-        <Route path="/" exact={true} render={() => <Program getResource={this.getResource} />} />
-        <Route path="/program1" render={() => <Program1 getResource={this.getResource} />} />
-        <Route path="/program2" render={() => <Progran2 getResource={this.getResource} />} />
-        <Route render={() => <Program getResource={this.getResource} />} />
-      </Switch>
     );
   }
 

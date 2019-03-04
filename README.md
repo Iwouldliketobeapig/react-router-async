@@ -62,26 +62,28 @@ class App extends Component {
 export default App;
 ```
 ## react-router中使用按需加载
+
+此处配合create-react-app使用，自己配置webpack需要配置output.fileName和output.chunkFilename
+
 ### 方法一：使用react.lazy
 
 ```jsx
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import React, { Suspense, lazy } from 'react';
 
-const Home = lazy(() => import('./routes/Home'));
-const About = lazy(() => import('./routes/About'));
+const Program1 = lazy(() => import('./Program1'));
 
 const App = () => (
   <Router>
     <Suspense fallback={<div>Loading...</div>}>
       <Switch>
-        <Route exact path="/" component={Home}/>
-        <Route path="/about" component={About}/>
+        <Route path="/program1" component={Program1}/>
       </Switch>
     </Suspense>
   </Router>
 );
 ```
+**[查看demo](!https://github.com/Iwouldliketobeapig/react-router-async/blob/master/src/App.js/)**
 ### 方法二：利用高阶组件
 
 * 写一个高阶组件用于动态加载组件
@@ -123,17 +125,15 @@ export default function asyncComponent(importComponent) {
 ```jsx
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import asyncComponent from './asyncComponent';
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense } from 'react';
 
-const Home = lazy(() => import('./routes/Home'));
-const About = lazy(() => import('./routes/About'));
+const Progran2 = asyncComponent(() => import("./Program2"));
 
 const App = () => (
   <Router>
     <Suspense fallback={<div>Loading...</div>}>
       <Switch>
-        <Route exact path="/" component={() => asyncComponent(import('./routes/Home'))}/>
-        <Route path="/about" component={() => asyncComponent(import('./routes/About'))}/>
+        <Route exact path="/program2" component={Program2}/>
       </Switch>
     </Suspense>
   </Router>
