@@ -55,7 +55,7 @@ export default App;
 ```
 ## react-router中使用按需加载
 
-[demo地址](https://github.com/Iwouldliketobeapig/react-router-async)，此处配合create-react-app使用，自己配置webpack合理需要配置[output.fileName](https://webpack.docschina.org/configuration/output/#output-fileName)和[output.chunkFilename](https://webpack.docschina.org/configuration/output/#output-chunkfilename)
+[demo地址](https://github.com/Iwouldliketobeapig/react-router-async)，此处配合create-react-app使用，自己配置webpack合理需要配置[output.fileName](https://webpack.docschina.org/configuration/output/#output-filename)和[output.chunkFilename](https://webpack.docschina.org/configuration/output/#output-chunkfilename)
 
 ### 方法一：使用react.lazy
 
