@@ -4,6 +4,7 @@ import { Router, Route, Switch, NavLink } from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
 import asyncComponent from './asyncComponent';
 import Program from './Program';
+import Context from './pages/context';
 
 const Program1 = lazy(() => import('./Program1'));
 const Progran2 = asyncComponent(() => import("./Program2"));
@@ -22,6 +23,7 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.props.storeState, 'dutao redux');
     return (
       <Router history={history}>
         <div className="app">
@@ -42,6 +44,7 @@ class App extends Component {
         <Route path="/program1" render={() => <Program1 getResource={this.getResource} />} />
         <Route path="/program2" render={() => <Progran2 getResource={this.getResource} />} />
         <Route path="/usecallback" render={() => <UseCallback />} />
+        <Route path="/context" component={Context} />
         <Route render={() => <Program getResource={this.getResource} />} />
       </Switch>
     );
@@ -62,6 +65,7 @@ class App extends Component {
       { to: '/program1', name: 'program1' },
       { to: '/program2', name: 'program2' },
       { to: '/usecallback', name: 'usecallback' },
+      { to: '/context', name: 'context' },
     ];
     return (
       <header>
