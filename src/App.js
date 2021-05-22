@@ -7,6 +7,7 @@ import Program from './Program';
 
 const Program1 = lazy(() => import('./Program1'));
 const Progran2 = asyncComponent(() => import("./Program2"));
+const UseCallback = asyncComponent(() => import('./pages/useCallback'));
 const history = createBrowserHistory();
 class App extends Component {
   constructor () {
@@ -40,6 +41,7 @@ class App extends Component {
         <Route path="/" exact={true} render={() => <Program getResource={this.getResource} />} />
         <Route path="/program1" render={() => <Program1 getResource={this.getResource} />} />
         <Route path="/program2" render={() => <Progran2 getResource={this.getResource} />} />
+        <Route path="/usecallback" render={() => <UseCallback />} />
         <Route render={() => <Program getResource={this.getResource} />} />
       </Switch>
     );
@@ -56,9 +58,10 @@ class App extends Component {
 
   header = () => {
     const linkList = [
-      { to: '/', name: '首页' },
+      { to: '/#test', name: '首页' },
       { to: '/program1', name: 'program1' },
       { to: '/program2', name: 'program2' },
+      { to: '/usecallback', name: 'usecallback' },
     ];
     return (
       <header>
