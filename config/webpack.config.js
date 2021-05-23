@@ -24,6 +24,7 @@ const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin-alt');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
+const webpackBuildEndNotify = require('../src/plugins/webpackBuildEndNotify');
 
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
@@ -478,6 +479,7 @@ module.exports = function(webpackEnv) {
     },
     plugins: [
       // Generates an `index.html` file with the <script> injected.
+      new webpackBuildEndNotify(),
       new HtmlWebpackPlugin(
         Object.assign(
           {},
