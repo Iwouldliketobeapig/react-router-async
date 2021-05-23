@@ -1,7 +1,17 @@
-export const createStore = (reducer) => {
+export const createStore = (reducer, middlewares) => {
   const defaultState = reducer(undefined, {})
   const store = new Store(defaultState, reducer);
+  if (middlewares) {
+    middlewares.forEach(ele => {
+      const next = store.dispatch.bind(store);
+      store.dispatch = ele(store)(next);
+    })
+  }
   return store;
+}
+
+export const applyMiddleware = (...args) => {
+  return args;
 }
 
 function Store (state, reducer) {
@@ -17,6 +27,7 @@ Store.prototype = {
 
   dispatch (action) {
     this.state = this.reducer(this.state, action);
+    debugger
     console.log(this.observers, 'observers')
     this.observers.forEach(ele => ele())
   },

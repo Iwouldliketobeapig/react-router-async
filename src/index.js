@@ -4,7 +4,8 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'normalize.css';
-import { createStore } from './utils/redux';
+import { createStore, applyMiddleware } from './utils/redux';
+import logs from './utils/redux/middlewarre/logs';
 
 function counterReducer(state = { value: 0 }, action) {
   switch (action.type) {
@@ -17,14 +18,13 @@ function counterReducer(state = { value: 0 }, action) {
   }
 }
 
-let store = createStore(counterReducer)
+let store = createStore(counterReducer, applyMiddleware(logs))
 
 store.subscribe(test);
 
 console.log(store.getState(), 1111)
 
 function test () {
-  console.log(store.getState(), 33333);
   ReactDOM.render(<App storeState={store.getState()} />, document.getElementById('root'));
 }
 

@@ -23,7 +23,7 @@ export default class Pargram1 extends PureComponent {
     console.log('渲染了几次');
     return (
       <div>
-        <div class="input level-center">
+        <div className="input level-center">
           <span>hello,world!</span>
         </div>
         <span>{this.state.testComponentWillMount}</span>
