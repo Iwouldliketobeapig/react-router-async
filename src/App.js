@@ -61,7 +61,7 @@ class App extends Component {
 
   header = () => {
     const linkList = [
-      { to: '/#test', name: '首页' },
+      { to: '/index', name: '首页' },
       { to: '/program1', name: 'program1' },
       { to: '/program2', name: 'program2' },
       { to: '/usecallback', name: 'usecallback' },

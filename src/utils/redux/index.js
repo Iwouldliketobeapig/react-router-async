@@ -27,7 +27,6 @@ Store.prototype = {
 
   dispatch (action) {
     this.state = this.reducer(this.state, action);
-    debugger
     console.log(this.observers, 'observers')
     this.observers.forEach(ele => ele())
   },

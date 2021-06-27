@@ -1,5 +1,5 @@
 function webpackBuildEndNotify () {};
-testPlugin.prototype.apply = function(compiler) {
+webpackBuildEndNotify.prototype.apply = function(compiler) {
   compiler.plugin("done", (stats) => {
     const pkg = require("../../package.json");
     const notifier = require("node-notifier");
